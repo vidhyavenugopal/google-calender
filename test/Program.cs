@@ -15,8 +15,6 @@ namespace CalendarQuickstart
 {
     class Program
     {
-        // If modifying these scopes, delete your previously saved credentials
-        // at ~/.credentials/calendar-dotnet-quickstart.json
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
 
@@ -39,15 +37,12 @@ namespace CalendarQuickstart
                     new FileDataStore(credPath, true)).Result;
                 Console.WriteLine("Credential file saved to: " + credPath);
             }
-
-            // Create Google Calendar API service.
             var service = new CalendarService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
                 ApplicationName = ApplicationName,
             });
 
-            // Define parameters of request.
             EventsResource.ListRequest request = service.Events.List("primary");
             request.TimeMin = DateTime.Now;
             request.ShowDeleted = false;
@@ -55,7 +50,7 @@ namespace CalendarQuickstart
             request.MaxResults = 10;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
-            // List events.
+         
             Events events = request.Execute();
             Console.WriteLine("Upcoming events:");
             if (events.Items != null && events.Items.Count > 0)
